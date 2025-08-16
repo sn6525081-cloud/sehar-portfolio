@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sehar Noor — Portfolio</title>
+  <meta name="description" content="Portfolio of Sehar Noor — HTML | CSS | JavaScript" />
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <style>
+    :root {
+      --bg: #070707;
+      --surface: #0f0f10;
+      --muted: #96a0a6;
+      --gold: #d2a84a;
+      --glow: 0 10px 40px rgba(210, 168, 74, 0.12);
+      --glass: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+      --radius: 14px;
+      --maxw: 1100px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(210, 168, 74, 0.02), transparent 6%),
+        radial-gradient(600px 300px at 90% 90%, rgba(255, 107, 107, 0.01), transparent 6%),
+        var(--bg);
+      color: #e9eef2;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 28px
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0
+    }
+
+    .brand {
+      display: flex;
+      gap: 14px;
+      align-items: center
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: var(--glow)
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .title {
+      font-weight: 800;
+      font-size: 18px
+    }
+
+    .sub {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 10px
+    }
+
+    .cta {
+      background: linear-gradient(90deg, #ffd36b, #ffb86b);
+      color: #060606;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: var(--glow)
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 28px;
+      align-items: center;
+      padding: 36px 0
+    }
+
+    .hero h1 {
+      font-size: 44px;
+      margin: 0;
+      line-height: 1.02;
+      background: linear-gradient(90deg, #fff, #fff 60%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .tag {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 16px
+    }
+
+    .hero .actions {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .btn-ghost {
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 700
+    }
+
+    /* card */
+    .card {
+      background: var(--surface);
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      box-shadow: 0 20px 50px rgba(2, 6, 23, 0.6)
+    }
+
+    .big-photo {
+      height: 340px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .big-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.95
+    }
+
+    /* quick facts */
+    .quick {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap
+    }
+
+    .chip {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      color: var(--muted);
+      font-weight: 700
+    }
+
+    footer {
+      margin-top: 40px;
+      color: var(--muted);
+      text-align: center;
+      padding-bottom: 18px
+    }
+
+    /* responsive */
+    /* @media (max-width:980px){ .hero{grid-template-columns:1fr 360px} }
+    @media (max-width:700px){
+      header{flex-direction:column;align-items:flex-start}
+      .hero{grid-template-columns:1fr;gap:18px}
+      .big-photo{height:220px}
+      .hero h1{font-size:30px}
+    } */
+    /* ===== Responsive tweaks for Sehar's portfolio ===== */
+
+    /* Large tablets & small laptops */
+    @media (max-width: 980px) {
+      .wrap {
+        padding: 24px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr 360px;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      nav {
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      /* 3→2 columns for portfolio */
+      #portfolio>div {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+    }
+
+    /* Tablets */
+    @media (max-width: 820px) {
+      .hero {
+        grid-template-columns: 1fr 320px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .tag {
+        font-size: 15px;
+      }
+
+      .quick {
+        gap: 10px;
+      }
+    }
+
+    /* Phones */
+    @media (max-width: 700px) {
+      :root {
+        --radius: 12px;
+      }
+
+      .wrap {
+        padding: 20px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .brand {
+        width: 100%;
+        align-items: center;
+      }
+
+      nav {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      nav a {
+        padding: 8px 10px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 24px 0 8px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .big-photo {
+        height: 220px;
+      }
+
+      .hero .actions {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .chip {
+        font-size: 13px;
+      }
+
+      /* 2→1 column for portfolio */
+      #portfolio>div {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    /* Small phones */
+    @media (max-width: 560px) {
+      .avatar {
+        width: 52px;
+        height: 52px;
+      }
+
+      .title {
+        font-size: 16px;
+      }
+
+      .sub {
+        font-size: 11px;
+      }
+
+      .hero .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .cta,
+      .btn-ghost {
+        width: 100%;
+        text-align: center;
+      }
+
+      .quick {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      .chip {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* Extra small */
+    @media (max-width: 400px) {
+      .wrap {
+        padding: 16px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .tag {
+        font-size: 14px;
+      }
+
+      .avatar {
+        width: 46px;
+        height: 46px;
+      }
+    }
+
+    /* Accessibility: respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .fade {
+        transition: none !important;
+      }
+    }
+
+    /* reveal */
+    .fade {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all .7s ease
+    }
+
+    .fade.show {
+      opacity: 1;
+      transform: none
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="avatar"><img src="https://i.pinimg.com/736x/02/23/b5/0223b5288de9742d99d7597528569be2.jpg" alt="profile"></div>
+        <div>
+          <div class="title">Sehar Noor</div>
+          <div class="sub">Frontend Developer • HTML · CSS · JavaScript</div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a class="cta" href="work.html">Open to Work</a>
+      </nav>
+    </header>
+
+    <main id="home" class="hero">
+      <div>
+        <h1 class="fade">Sehar Noor</h1>
+        <div class="tag fade" style="transition-delay:.05s">Crafting web experiences with passion & precision — <strong
+            style="color:var(--gold)">HTML</strong> · <strong style="color:var(--gold)">CSS</strong> · <strong
+            style="color:var(--gold)">JavaScript</strong></div>
+
+        <div class="actions fade" style="transition-delay:.1s">
+          <a class="cta" href="work.html">Open to Work — View Details</a>
+          <button class="btn-ghost" onclick="downloadResume()">Download Resume</button>
+        </div>
+
+        <div class="quick fade" style="transition-delay:.14s">
+          <div class="chip">Available for freelance</div>
+          <div class="chip">Remote • Pakistan</div>
+          <div class="chip">Age: 14</div>
+        </div>
+      </div>
+
+      <aside class="card fade" style="transition-delay:.18s">
+        <div class="big-photo">
+          <img src="https://i.pinimg.com/736x/f8/38/1e/f8381e0836109a33b27bb9ad785dc4f9.jpg" alt="project">
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+          <div>
+            <div style="font-weight:800">Frontend Developer</div>
+            <div style="color:var(--muted);font-size:13px">Building modern responsive sites</div>
+          </div>
+          <div style="text-align:right">
+            <div style="color:var(--gold);font-weight:800">Available</div>
+            <div style="font-size:12px;color:var(--muted)">DM for projects</div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <section id="about" class="card fade" style="margin-top:28px">
+      <h3 style="margin-top:0">About</h3>
+      <p style="color:var(--muted)">Hi, I'm <strong>Sehar Noor</strong>. I build clean, accessible front-end interfaces
+        using HTML, CSS, and JavaScript. I love good typography, subtle motion, and making designs that feel premium.
+      </p>
+    </section>
+
+     <section id="portfolio" class="card fade" style="margin-top:18px">
+      <h3 style="margin-top:0">Portfolio (Demo)</h3>
+      <p style="color:var(--muted)">Three demo projects — replace with your real links later.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+        <div class="chip"
+          style="height:120px;display:flex;align-items:flex-end;justify-content:flex-start;padding:12px;background:linear-gradient(180deg,rgba(246, 245, 245, 0.02),transparent);cursor:pointer; background-image: url(https://i.pinimg.com/1200x/04/5b/d1/045bd172a12c09ab8c55ba214b54a584.jpg) ; object-fit: cover; background-position: center; background-size: cover; width: 300px; height: 400px;  color: white;"
+          onclick="openDemo('Restaurant')">
+          <div><strong>Restaurant Demo</strong>
+            <div style="color:var(--muted);font-size:13px ; color: white;">Landing • Menu • Contact</div>
+            
+          </div>
+        </div>
+        <div class="chip" style="height:120px;display:flex;align-items:flex-end;padding:12px;cursor:pointer;background-image: url('https://i.pinimg.com/736x/8c/55/de/8c55dee4be090a920e57cd9edb3885e0.jpg'); object-fit: cover; background-position: center; background-size: cover; width: 300px; height: 200px; color: white;"
+          onclick="openDemo('Portfolio')">
+          <div><strong>Portfolio Demo</strong>
+            <div style="color:var(--muted);font-size:13px; color: white;">Projects • About • Contact</div>
+            
+          </div>
+        </div>
+        <div class="chip" style="height:120px;display:flex;align-items:flex-end;padding:12px;cursor:pointer;background-image: url(https://i.pinimg.com/1200x/54/cc/23/54cc23fd2bfa168883e9f2e25b411a7e.jpg) ;color: #fff;; object-fit: cover; background-position: center; background-size: cover; width: 300px; height: 200px;"
+          onclick="openDemo('Shop')">
+          <div><strong>Shop Demo</strong>
+            <div style="color:var(--muted);font-size:13px ; color: #fff;">Products • Checkout UI</div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+     
+
+
+    <footer>© <strong>Sehar Noor</strong> — Frontend Developer • Made with ♥</footer>
+  </div>
+
+  <script>
+    // small helpers
+    function downloadResume() { alert('Resume download demo — add resume.pdf to project and update function to download.'); }
+    function openDemo(name) { alert('Open demo: ' + name + ' — replace with real link.'); }
+
+    // reveal animations
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.fade').forEach((el, i) => {
+        setTimeout(() => el.classList.add('show'), 100 + i * 80);
+      });
+    });
+
+    // smooth internal linking (if any)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function (e) { const href = this.getAttribute('href'); if (href.length > 1) { e.preventDefault(); document.querySelector(href).scrollIntoView({ behavior: 'smooth', block: 'start' }); } });
+    });
+  </script>
+</body>
+
+</html>
