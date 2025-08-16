@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sehar Noor — Frontend Developer</title>
+  <meta name="description" content="Portfolio of Sehar Noor — HTML | CSS | JavaScript" />
+  
+
+  <link rel="icon" href="/assets/favicon.png" type="image/png" sizes="32x32">
+  <style>
+    /* ========== Variables & Base ========== */
+    :root {
+      --bg: #070707;
+      --surface: #0f0f10;
+      --muted: #9aa3a8;
+      --gold: #d2a84a;
+      --gold-glow: 0 6px 30px rgba(210, 168, 74, 0.18);
+      --glass: linear-gradient(180deg, rgba(181, 168, 168, 0.02), rgba(255, 255, 255, 0.01));
+      --radius: 16px;
+      --maxw: 1100px;
+      --accent: linear-gradient(90deg, #ffd36b, #ffb86b 60%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(210, 168, 74, 0.03), transparent 6%),
+        radial-gradient(900px 500px at 90% 90%, rgba(255, 107, 107, 0.02), transparent 6%),
+        var(--bg);
+      color: #e6eaee;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 28px
+    }
+
+    /* ========== Header ========== */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: conic-gradient(from 200deg at 50% 50%, rgba(210, 168, 74, 0.12), rgba(255, 107, 107, 0.08));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: var(--gold-glow);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .brand .title {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.3px
+    }
+
+    .brand .sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 600
+    }
+
+    nav a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.02)
+    }
+
+    .btn-cta {
+      background: linear-gradient(90deg, #ffb86b, #ffd36b);
+      color: #0b0b0b;
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: var(--gold-glow);
+    }
+
+    /* ========== Hero ========== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 28px;
+      align-items: center;
+      padding: 36px 0;
+    }
+
+    .hero-left h1 {
+      margin: 0;
+      font-size: 44px;
+      line-height: 1.02;
+      background: linear-gradient(90deg, #fff, #fff 60%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 6px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .tag {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .hero-actions {
+      margin-top: 22px;
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .ghost {
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--muted);
+      background: transparent;
+      font-weight: 700
+    }
+
+    .profile-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+      text-align: center;
+    }
+
+    .big-photo {
+      width: 100%;
+      height: 320px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #111, #0b0b0b);
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    /* ========== Sections ========== */
+    section {
+      margin-top: 34px
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+    }
+
+    /* About */
+    .about-grid {
+      display: flex;
+      gap: 20px;
+      align-items: center
+    }
+
+    .about-text {
+      flex: 1
+    }
+
+    .highlight {
+      color: var(--gold);
+      font-weight: 800
+    }
+
+    /* Skills */
+    .skills {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px
+    }
+
+    .skill {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      font-weight: 700;
+      color: var(--gold);
+      box-shadow: 0 8px 30px rgba(210, 168, 74, 0.06);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .skill .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%
+    }
+
+    /* Portfolio */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 18px
+    }
+
+    .proj {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      height: 220px;
+      background: linear-gradient(180deg, #0b0b0b, #0f0f10);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: transform .4s cubic-bezier(.2, .9, .3, 1), box-shadow .3s;
+    }
+
+    .proj:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(2, 6, 23, 0.7)
+    }
+
+    .proj .meta {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      color: #fff
+    }
+
+    .proj .meta h4 {
+      margin: 0
+    }
+
+    .proj .meta p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 18px
+    }
+
+    .form input,
+    .form textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: transparent;
+      color: #fff;
+      margin-top: 10px;
+    }
+
+    .form button {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: var(--gold);
+      font-weight: 800;
+      color: #111;
+      cursor: pointer;
+      box-shadow: var(--gold-glow)
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      padding: 18px 0;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center
+    }
+
+    /* ========== Animations ========== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all .7s ease;
+      will-change: transform, opacity
+    }
+
+    .fade-in.show {
+      opacity: 1;
+      transform: none
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width:1000px) {
+      .hero {
+        grid-template-columns: 1fr 320px
+      }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr
+      }
+
+      .about-grid {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+
+    @media (max-width:640px) {
+      .wrap {
+        padding: 18px
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px
+      }
+
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
+        overflow: auto
+      }
+
+      .hero {
+        grid-template-columns: 1fr
+      }
+
+      .hero-left h1 {
+        font-size: 30px
+      }
+
+      .big-photo {
+        height: 220px
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    section #about a {
+      text-decoration: none;
+    }
+
+    /* ----- Mobile First Styles Already Here -----
+   Yeh base styling tumhari normal CSS me rahegi
+*/
+
+    /* Tablet Screens (max-width: 768px) */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-card {
+        max-width: 100%;
+        margin-top: 20px;
+      }
+
+      .about-grid {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        flex-direction: column;
+      }
+    }
+
+    /* Large Mobile Screens (max-width: 480px) */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      nav a {
+        font-size: 14px;
+        padding: 6px;
+      }
+
+      .btn-cta,
+      .ghost {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+
+      .skills {
+        grid-template-columns: 1fr;
+      }
+
+      textarea {
+        min-height: 120px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="avatar">
+          <!-- Replace src with your photo file 'me.jpg' -->
+          <img src="https://i.pinimg.com/736x/02/23/b5/0223b5288de9742d99d7597528569be2.jpg" alt="Sehar Noor">
+        </div>
+        <div>
+          <div class="title">Sehar Noor</div>
+          <div class="sub">Frontend Developer — HTML • CSS • JavaScript</div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+        <a class="btn-cta" href="#contact">Hire Me</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <main id="home" class="hero">
+      <div class="hero-left fade-in">
+        <h1>Sehar Noor</h1>
+        <div class="tag">Crafting web experiences with passion & precision — <span class="highlight">HTML</span> · <span
+            class="highlight">CSS</span> · <span class="highlight">JavaScript</span></div>
+
+        <div class="hero-actions">
+          <a class="btn-cta" href="#portfolio">View Work</a>
+          <button class="ghost" onclick="downloadResume()">Download Resume</button>
+        </div>
+
+        <div style="margin-top:20px;color:var(--muted)">Available for freelancing • Based in Pakistan</div>
+      </div>
+
+      <aside class="profile-card fade-in">
+        <div class="big-photo">
+          <!-- You can replace this background with any image -->
+          <img src="https://i.pinimg.com/736x/70/2e/b3/702eb327186a62e6bfab5be1e40a1b77.jpg" alt="project preview" style="width:100%;height:100%;object-fit:cover;opacity:0.95" />
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+          <div>
+            <div style="font-weight:800">Frontend Developer</div>
+            <div style="color:var(--muted);font-size:13px">Building modern responsive sites</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:800;color:var(--gold)">Available</div>
+            <div style="font-size:12px;color:var(--muted)">DM for projects</div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- ABOUT -->
+    <section id="about" class="card fade-in">
+      <div class="about-grid">
+        <div class="about-text">
+          <h3 style="margin-top:0">About Me</h3>
+          <p style="color:var(--muted);margin-top:6px">Hi, I’m <strong>Sehar Noor</strong>. I create clean, accessible,
+            and engaging front-end interfaces using HTML, CSS, and JavaScript. I love good typography, subtle motion,
+            and designs that feel premium. My goal is to turn ideas into polished digital experiences.</p>
+          <p style="margin-top:12px"><span style="color:var(--gold);font-weight:800">Strengths:</span> Responsive
+            Layouts · Interactive UI · Performance-minded</p>
+        </div>
+        <div style="min-width:260px">
+          <div
+            style="padding:12px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03)">
+            <div style="font-weight:800;margin-bottom:8px">Quick Info</div>
+            <div style="color:var(--muted);font-size:14px">Age: 14 • Location: Pakistan • Languages: Urdu, English</div>
+            <a href="work.html">
+              <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+
+                <a href="work.html" style="text-decoration: none;">
+                  <div
+                    style="font-size:13px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);text-decoration: none; color: white;">
+                    Open to work
+                  </div>
+                </a>
+
+                <a href="perviee work.html" style="text-decoration: none;">
+                  <div
+                    style="font-size:13px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02); color: white;">
+                    Remote</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="card fade-in">
+      <h3 style="margin-top:0">Skills</h3>
+      <div class="skills">
+        <div class="skill">
+          <div class="dot"></div> HTML — Semantic & accessible
+        </div>
+        <div class="skill">
+          <div class="dot"></div> CSS — Responsive & animations
+        </div>
+        <div class="skill">
+          <div class="dot"></div> JavaScript — DOM & interactivity
+        </div>
+        <div class="skill">
+          <div class="dot"></div> Git & Version Control
+        </div>
+        <div class="skill">
+          <div class="dot"></div> Design basics — layout & typography
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="portfolio" class="card fade-in">
+      <h3 style="margin-top:0">Portfolio</h3>
+
+      <div class="portfolio-grid" style="margin-top:20px; display:flex; flex-wrap:wrap; gap:20px;">
+
+        <!-- Restaurant Demo Video -->
+        <div class="proj" onclick="openPreview(1)"
+          style="position:relative; overflow:hidden; width:300px; height:300px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+           <!-- <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
+            <source src="https://i.pinimg.com/1200x/b2/32/18/b232181e3ccaf11049ef19d44b3585a7.jpg" type="video/mp4">
+          </video> -- -->
+          <img src="https://i.pinimg.com/1200x/b2/32/18/b232181e3ccaf11049ef19d44b3585a7.jpg" alt="restaurant-demo " style="width:100% ; height: 100%; object-fit: cover;">
+          <div class="overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:12px;
+                  background:linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.4));"></div>
+          <div class="meta" style="position:absolute; bottom:10px; left:10px; color:white;">
+            <h4>Restaurant Demo</h4>
+            <p style="margin:6px 0 0; color: white;">Projects • About • Contact</p>
+          </div>
+        </div>
+
+        <!-- Portfolio Demo Image -->
+        <div class="proj" onclick="openPreview(2)" style="width:300px; height:300px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.3);
+                background-image:linear-gradient(180deg,rgba(0,0,0,0.1),rgba(0,0,0,0.4)), 
+                url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=60'); 
+                background-size:cover; background-position:center;">
+          <div class="meta" style="position:absolute; bottom:10px; left:10px; color:white;">
+            <h4>Portfolio Demo</h4>
+            <p style="margin:6px 0 0; color: white;">Projects • About • Contact</p>
+          </div>
+        </div>
+
+        <!-- Portfolio Demo Video -->
+        <div class="proj" onclick="openPreview(3)"
+          style="position:relative; overflow:hidden; width:300px; height:300px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+          <!-- <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
+            <source src="portfolio.mp4" type="video/mp4">
+          </video> -->
+          <img src="https://i.pinimg.com/736x/3c/dc/ba/3cdcba87187767464c939ccedba605e0.jpg" alt="portfolio" style="width: 100%; height: 100%; object-fit: cover;">
+          <div class="overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:12px;
+                  background:linear-gradient(180deg, rgba(34, 33, 33, 0.1), rgba(0,0,0,0.4));"></div>
+          <div class="meta" style="position:absolute; bottom:10px; left:10px; color:white;">
+            <h4>Portfolio Demo</h4>
+            <p style="margin:6px 0 0; color: white;" >Projects • About • Contact</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card fade-in">
+      <h3 style="margin-top:0">Contact</h3>
+      <div class="contact-grid">
+        <div class="form">
+          <p style="color:var(--muted)">Send a message for collaboration or freelancing inquiries.</p>
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <input type="text" id="name" placeholder="Your name" required />
+            <input type="email" id="email" placeholder="Email address" required />
+            <textarea id="msg" rows="6" placeholder="Tell me about the project..." required></textarea>
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+
+        <aside
+          style="padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.02)">
+          <div style="font-weight:800">Reach me</div>
+          <div style="color:var(--muted);margin-top:8px">Email: <span style="color:#fff">sehar.noor@example.com</span>
+          </div>
+          <div style="color:var(--muted);margin-top:8px">Instagram: <span style="color:#fff">@sehar_dev</span></div>
+          <div style="margin-top:14px">
+            <a href="#" onclick="copyEmail(event)"
+              style="display:inline-block;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--muted);text-decoration:none">Copy
+              Email</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      © <strong>Sehar Noor</strong> — Frontend Developer • Made with ❤️
+    </footer>
+  </div>
+
+
+  <script >
+
+    // / ====== Download Resume ======
+    function downloadResume() {
+      const link = document.createElement('a');
+      link.href = 'resume.pdf'; // apni resume file ka naam yahan daal
+      link.download = 'Sehar-Noor-Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // ====== Copy Email ======
+    function copyEmail(e) {
+      e.preventDefault();
+      navigator.clipboard.writeText('sehar.noor@example.com')
+        .then(() => {
+          const btn = e.target;
+          btn.textContent = "Copied!";
+          btn.style.color = "#d2a84a";
+          setTimeout(() => {
+            btn.textContent = "Copy Email";
+            btn.style.color = "";
+          }, 2000);
+        })
+        .catch(() => alert('Could not copy — please copy manually.'));
+    }
+
+    // ====== Portfolio preview (real links) ======
+    function openPreview(id) {
+      const links = {
+        1: 'https://restaurant-demo.example.com',
+        2: 'https://portfolio-demo.example.com',
+        3: 'https://shop-demo.example.com'
+      };
+      if (links[id]) {
+        window.open(links[id], '_blank');
+      }
+    }
+
+    // ====== Contact form ======
+    function handleSubmit(e) {
+      e.preventDefault();
+      const n = document.getElementById('name').value.trim();
+      const em = document.getElementById('email').value.trim();
+      const m = document.getElementById('msg').value.trim();
+      if (!n || !em || !m) {
+        alert('براہِ مہربانی تمام فیلڈ پُر کریں۔');
+        return;
+      }
+      alert(`Thanks ${n}! Your message has been sent successfully.`);
+      document.getElementById('contactForm').reset();
+    }
+
+    // ====== Scroll reveal ======
+    const revealEls = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+
+    // ====== Smooth scroll ======
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href.length > 1) {
+          e.preventDefault();
+          const el = document.querySelector(href);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>
