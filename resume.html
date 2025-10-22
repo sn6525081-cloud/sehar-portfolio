@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cute, image-focused product landing page for Sehar's portfolio." />
+  <title>Product Landing Page</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* THEME – adjust easily */
+      --bg: #0e0e10;
+      /* dark base */
+      --bg-2: #121216;
+      /* cards */
+      --text: #ffffff;
+      /* main text */
+      --muted: #cfcfd6;
+      /* secondary text */
+      --brand: #ff6fb5;
+      /* cute pink */
+      --brand-2: #a78bfa;
+      /* soft purple */
+      --accent: #63e6be;
+      /* mint */
+      --ring: rgba(255, 111, 181, .35);
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      --radius: 22px;
+      --maxw: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(255, 111, 181, .12), transparent 60%),
+        radial-gradient(1200px 600px at 90% 10%, rgba(167, 139, 250, .12), transparent 60%),
+        linear-gradient(180deg, var(--bg), #0b0b0d 60%);
+      min-height: 100dvh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(1.2) blur(12px);
+      background: rgba(14, 14, 16, .55);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      transition: box-shadow .2s ease;
+    }
+
+    header.scrolled {
+      box-shadow: var(--shadow);
+    }
+
+    .nav {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+    }
+
+    .logo {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-weight: 800;
+      letter-spacing: .3px;
+    }
+
+    .logo-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--brand), var(--brand-2));
+      box-shadow: 0 0 0 6px var(--ring);
+    }
+
+    .links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .links a {
+      opacity: .9;
+      font-weight: 500;
+    }
+
+    .links a:hover {
+      opacity: 1;
+    }
+
+    .cta {
+      padding: 10px 16px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(255, 111, 181, .35);
+      border: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 26px;
+    }
+
+    @media (max-width:900px) {
+      .links {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+    }
+
+    /* Mobile drawer */
+    .drawer {
+      position: fixed;
+      inset: 0 0 auto auto;
+      top: 56px;
+      right: 0;
+      width: min(85vw, 360px);
+      background: var(--bg-2);
+      border-left: 1px solid rgba(255, 255, 255, .08);
+      box-shadow: var(--shadow);
+      transform: translateX(100%);
+      transition: .25s ease;
+      z-index: 60;
+    }
+
+    .drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer .links-col {
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      gap: 14px;
+    }
+
+    /* Container */
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 40px;
+      align-items: center;
+      padding: 60px 0 80px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .82rem;
+      color: var(--muted);
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+
+    .eyebrow .pill {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(99, 230, 190, .12);
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 3.8vw, 3.6rem);
+      margin: 14px 0 8px;
+      line-height: 1.1;
+    }
+
+    h1 .grad {
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    h2 {
+      font-size: clamp(1.1rem, 1.4vw, 1.4rem);
+      color: var(--muted);
+      font-weight: 500;
+      margin: 0 0 18px;
+    }
+
+    .lead {
+      color: #efeff5;
+      opacity: .92;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      /* background: linear-gradient(90deg, #ffb86b, #ffd36b); */
+
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .04);
+      font-weight: 700;
+    }
+
+
+    .btn.primary {
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      box-shadow: 0 14px 34px rgba(167, 139, 250, .28);
+    }
+
+    .device {
+      position: relative;
+      isolation: isolate;
+      border-radius: var(--radius);
+      background: radial-gradient(800px 400px at 70% -10%, rgba(255, 111, 181, .2), transparent 40%),
+        radial-gradient(800px 400px at 0% 90%, rgba(167, 139, 250, .25), transparent 40%),
+        linear-gradient(180deg, #141418, #0e0e10);
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      box-shadow: var(--shadow);
+    }
+
+    .glow {
+      position: absolute;
+      inset: auto -10% -20% -10%;
+      height: 50%;
+      background: radial-gradient(60% 80% at 50% 20%, rgba(255, 111, 181, .25), transparent 60%);
+      filter: blur(30px);
+      z-index: -1;
+    }
+
+    .product-img {
+      border-radius: calc(var(--radius) - 6px);
+      border: 1px solid rgba(255, 255, 255, .08);
+      overflow: hidden;
+    }
+
+    /* Highlights */
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 20px 0 10px;
+    }
+
+    .chip {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
+      text-align: center;
+      font-weight: 600;
+    }
+
+    @media (max-width:900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .highlights {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Section blocks */
+    section {
+      padding: 50px 0;
+    }
+
+    .card {
+      background: var(--bg-2);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 22px;
+    }
+
+    .feature h3 {
+      margin: 8px 0;
+      font-size: 1.1rem;
+    }
+
+    .feature p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    @media (max-width:900px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Specs */
+    .specs {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .spec-table {
+      padding: 22px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 12px 10px;
+    }
+
+    tr+tr td,
+    tr+tr th {
+      border-top: 1px dashed rgba(255, 255, 255, .12);
+    }
+
+    .spec-cta {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    @media (max-width:900px) {
+      .specs {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .gallery img {
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    @media (max-width:900px) {
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Reviews */
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .review {
+      padding: 18px;
+    }
+
+    .stars {
+      letter-spacing: 2px;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .who {
+      font-size: .92rem;
+      color: var(--muted);
+    }
+
+    @media (max-width:900px) {
+      .reviews {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding: 26px 0 70px;
+      color: var(--muted);
+    }
+
+    .foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Back to top */
+    #toTop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .06);
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    #toTop.show {
+      display: inline-flex;
+    }
+
+    /* Small helper */
+    .sec-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .sec-title .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      box-shadow: 0 0 0 6px var(--ring);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header / Nav -->
+  <header id="top">
+    <nav class="nav">
+      <div class="logo">
+        <span class="logo-dot"></span>
+        <span>Studio</span>
+      </div>
+      <div class="links">
+        <a href="#features">Features</a>
+        <a href="#specs">Specs</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#reviews">Reviews</a>
+        <a class="cta" href="#buy">Buy Now</a>
+      </div>
+      <button class="menu-btn" aria-label="Open Menu" id="menuBtn">☰</button>
+    </nav>
+  </header>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="links-col">
+      <a href="#features">Features</a>
+      <a href="#specs">Specs</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reviews">Reviews</a>
+      <a class="cta" href="#buy">Buy Now</a>
+    </div>
+  </aside>
+
+  <main class="wrap">
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div>
+        <span class="eyebrow"><span class="pill"></span> Cute • Wireless • Cozy</span>
+        <h1>
+          <span class="grad">Premium Sound</span> with a Cute Vibe
+        </h1>
+        <h2>Your comfy wireless headphones for study, chill and late-night lo-fi.</h2>
+        <p class="lead">Soft pastel theme, noise cancellation, and 40+ hrs battery life. Designed for comfort and
+          style—match your desk setup and your playlist.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#buy">Buy Now</a>
+          <a class="btn" href="#gallery">See Photos</a>
+        </div>
+        <div class="highlights">
+          <div class="chip">Noise Cancel</div>
+          <div class="chip">40h Battery</div>
+          <div class="chip">BT 5.3</div>
+          <div class="chip">Fast Charge</div>
+        </div>
+      </div>
+      <div class="device">
+        <div class="glow" aria-hidden="true"></div>
+        <!-- Replace the src with your own cute product image if you want -->
+        <div class="product-img">
+          <img src="https://i.pinimg.com/1200x/4a/d8/ad/4ad8ad9edf0231341ee4bec3ff7cb414.jpg"
+            alt="Cute Wireless Headphones" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+      <div class="sec-title"><span class="dot"></span>
+        <h2 style="margin:0">Features you’ll love</h2>
+      </div>
+      <div class="features">
+        <article class="card feature">
+          <h3>Feather Comfort</h3>
+          <p>Plush ear cushions and adjustable headband keep you comfy for long study sessions and binge-watching
+            nights.</p>
+        </article>
+        <article class="card feature">
+          <h3>Crystal Audio</h3>
+          <p>Custom 40mm drivers tuned for warm mids and clear highs—perfect for podcasts, lo-fi, and vocals.</p>
+        </article>
+        <article class="card feature">
+          <h3>QuickPair</h3>
+          <p>Instant pairing with multi‑device memory. Switch from laptop to phone in a tap—no drama.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Specs & Price -->
+    <section id="specs">
+      <div class="sec-title"><span class="dot"></span>
+        <h2 style="margin:0">Specifications</h2>
+      </div>
+      <div class="specs">
+        <div class="card spec-table">
+          <table aria-label="Product Specifications">
+            <tr>
+              <th>Driver</th>
+              <td>40mm dynamic</td>
+            </tr>
+            <tr>
+              <th>Noise Cancel</th>
+              <td>Hybrid ANC up to 35 dB</td>
+            </tr>
+            <tr>
+              <th>Battery</th>
+              <td>Up to 24 hours (ANC off)</td>
+            </tr>
+            <tr>
+              <th>Charging</th>
+              <td>USB‑C fast charge (10 min → 4 hrs)</td>
+            </tr>
+            <tr>
+              <th>Bluetooth</th>
+              <td>5.3 + multipoint</td>
+            </tr>
+            <tr>
+              <th>Weight</th>
+              <td>235 g</td>
+            </tr>
+            <tr>
+              <th>Codecs</th>
+              <td>AAC / SBC</td>
+            </tr>
+            <tr>
+              <th>Mic</th>
+              <td>Dual beamforming</td>
+            </tr>
+          </table>
+        </div>
+        <div class="card spec-cta" id="buy">
+          <div class="price">Rs 12,999</div>
+          <p class="lead" style="opacity:.9">Free delivery in Pakistan • 7‑day return • 1‑year warranty</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#">Add to Cart</a>
+            <a class="btn" href="#reviews">Read Reviews</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery">
+      <div class="sec-title"><span class="dot"></span>
+        <h2 style="margin:0">Gallery</h2>
+      </div>
+      <div class="gallery">
+        <img src="https://i.pinimg.com/1200x/26/af/45/26af4543d55cbb8cafc2ed0228be2356.jpg" alt="Headphones close up">
+        <img src="https://i.pinimg.com/1200x/bf/f5/7c/bff57c246a349e47949057e8429fc112.jpg" alt="Pink aesthetic">
+        <img src="https://i.pinimg.com/736x/ec/b1/4f/ecb14fb14c1f6a203af024f65f97ba7d.jpg" alt="Cute setup">
+        <img src="https://i.pinimg.com/1200x/8f/25/ab/8f25ab2328ce0d8515f1b717800cb07a.jpg" alt="Cup and headphones">
+        <img src="https://i.pinimg.com/736x/b5/30/b0/b530b05572c578b92f238ed8b2407bf3.jpg"
+          alt="Desk vibe with headphones">
+        <img src="https://i.pinimg.com/736x/1a/7b/29/1a7b29c957dc0695af38aa5968aa19a5.jpg" alt="Lifestyle shot">
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews">
+      <div class="sec-title"><span class="dot"></span>
+        <h2 style="margin:0">What users say</h2>
+      </div>
+      <div class="reviews">
+        <div class="card review">
+          <div class="stars">★★★★★</div>
+          <p>Super comfy, sound is warm and clear. Love the cute pink vibe on my desk!</p>
+          <div class="who">— Ayesha</div>
+        </div>
+        <div class="card review">
+          <div class="stars">★★★★☆</div>
+          <p>Pairs quick with laptop and phone. Battery easily lasts the whole week.</p>
+          <div class="who">— Umar</div>
+        </div>
+        <div class="card review">
+          <div class="stars">★★★★★</div>
+          <p>ANC is solid for the price. Great for library and late‑night study.</p>
+          <div class="who">— Sana</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div>© <span id="year"></span> Studio — Built with ❤</div>
+      <div><a href="#top">Back to top ↑</a></div>
+    </div>
+  </footer>
+
+  <button id="toTop" aria-label="Back to top">↑</button>
+
+  <script>
+    // Sticky header shadow
+    const header = document.querySelector('header');
+    const toTop = document.getElementById('toTop');
+    const year = document.getElementById('year');
+    year.textContent = new Date().getFullYear();
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      header.classList.toggle('scrolled', y > 8);
+      toTop.classList.toggle('show', y > 400);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Back to top
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Mobile drawer
+    const btn = document.getElementById('menuBtn');
+    const drawer = document.getElementById('drawer');
+    btn.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      drawer.setAttribute('aria-hidden', String(!open));
+    });
+    drawer.addEventListener('click', e => {
+      if (e.target.tagName === 'A') drawer.classList.remove('open');
+    });
+  </script>
+</body>
+
+
+
+
+
+
+
