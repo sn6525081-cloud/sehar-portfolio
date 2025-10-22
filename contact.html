@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flame & Fork</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        section {
+            padding: 80px 20px ;
+            position: relative;
+        }
+        /* --- Navbar --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            z-index: 999;
+        }
+        header .logo h1 {
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+        header nav a {
+            margin-left: 25px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        
+        header nav a:hover {
+            color: #ff4500;
+        }
+        /* --- Responsive --- */
+        @media(max-width:1024px) {
+            #hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            #hero .right {
+                text-align: center;
+            }
+            header {
+                padding: 15px 30px;
+            }
+            header nav a {
+                margin-left: 15px;
+            }
+        }
+        @media(max-width:768px) {
+
+            .menu-slider,
+            .chef-cards,
+            .testimonials-slider {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="logo">
+            <!-- <h1>Flame & Fork</h1>
+              -->
+            <a href="#flame-fork"><h1>Flame & Fork</h1></a>
+        </div>
+        <nav>
+            <a href="#hero">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#chef">Chef's Special</a>
+            <a href="#testimonials">Reviews</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        
+    </header>
+    
+
+    <!-- Hero Section – Professional Dark Theme -->
+    <section id="hero"
+        style="position:relative;display:flex;justify-content:space-between;align-items:center;min-height:100vh;padding-top:80px;overflow:hidden;">
+        <!-- Background Images & Overlay -->
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden;">
+            <img src="https://i.pinimg.com/736x/3e/c9/fe/3ec9fe32c6217014789b5f42e2343f47.jpg"
+                style="width:100%;height:100%;object-fit:cover;filter:blur(8px) brightness(0.4);">
+            <!-- Particle Layer -->
+            <canvas id="hero-particles" style="position:absolute;top:0;left:0;width:100%;height:100%;"></canvas>
+        </div>
+
+        <!-- Left Side Text -->
+        <div class="left" style="flex:1;padding:20px;position:relative;z-index:1;">
+            <h1 style="font-size:48px;color:white;margin-bottom:20px;">Flame & Fork</h1>
+            <h2 style="font-size:32px;color:#ff4500;"><span class="typing"></span></h2>
+            <button class="cta"
+                style="margin-top:30px;padding:15px 30px;background:#ff4500;color:white;border:none;border-radius:10px;font-size:18px;cursor:pointer;transition:0.3s;"
+                onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Table</button>
+        </div>
+
+        <!-- Right Side Image Card -->
+        <div class="right" style="flex:1;text-align:right;padding:20px;position:relative;z-index:1;">
+            <div
+                style="background: rgba(255,255,255,0.1);border-radius:20px;box-shadow: 0 8px 20px rgba(0,0,0,0.6);padding:10px;display:inline-block;">
+                <img src="https://i.pinimg.com/736x/3e/c9/fe/3ec9fe32c6217014789b5f42e2343f47.jpg" alt="Restaurant Hero"
+                    style="max-width:90%;border-radius:20px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Typing Animation Script -->
+    <script>
+        const words = ["Delicious Food Awaits...", "Experience the Flavor...", "Your Gourmet Journey..."];
+        let i = 0, j = 0, currentWord = '', isDeleting = false;
+        const typingEl = document.querySelector('.typing');
+
+        function type() {
+            if (i >= words.length) i = 0;
+            const fullWord = words[i];
+
+            if (!isDeleting) {
+                currentWord = fullWord.substring(0, j + 1);
+                typingEl.textContent = currentWord;
+                j++;
+                if (currentWord === fullWord) setTimeout(() => { isDeleting = true; type(); }, 1500);
+                else setTimeout(type, 100);
+            } else {
+                currentWord = fullWord.substring(0, j - 1);
+                typingEl.textContent = currentWord;
+                j--;
+                if (j === 0) { isDeleting = false; i++; setTimeout(type, 500); }
+                else setTimeout(type, 50);
+            }
+        }
+        type();
+    </script>
+
+    <!-- Particle Animation -->
+    <script>
+        const canvas = document.getElementById('hero-particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray = [];
+        const colors = ['#ff4500', '#ff6347', '#ffa07a'];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 1;
+                this.speedY = (Math.random() - 0.5) * 1;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < 80; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+    </script>
+
+
+
+    <!-- About Section -->
+    <section id="about"
+        style="padding:80px 20px;background: #111; color: #f5f5f5; border-radius:20px; margin:30px 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        <h2 style="text-align:center;font-size:36px;margin-bottom:30px;color:#ff4500;">About Flame & Fork</h2>
+
+        <div id="about-main" style="max-width:900px;margin:0 auto; position:relative;">
+            <p id="about-text" style="font-size:18px; line-height:1.8; opacity:1; transition: opacity 0.5s;">
+                Welcome to Flame & Fork, Karachi's premier destination for mouthwatering cuisines crafted with passion.
+                From sizzling steaks to delightful pastas and fresh seafood platters, we bring flavors that awaken your
+                senses.
+                Our chefs combine tradition and innovation to deliver a culinary journey like no other.
+                <span id="dots">............................. !!!!!!!</span>
+                <span id="more" style="display:none;">
+                    Every dish is prepared with top-quality ingredients, attention to detail, and a dedication to
+                    excellence.
+                    Our mission is to make every dining experience memorable, whether you join us in-house or opt for
+                    our swift delivery service.
+                    Located in the heart of Karachi, we ensure our customers experience unmatched taste and professional
+                    service.
+                    Step into our world and discover why Flame & Fork is the city's favorite culinary hotspot.
+                </span>
+            </p>
+            <div style="text-align:center;margin-top:20px;">
+                <button id="readMoreBtn"
+                    style="padding:12px 25px;background:#ff4500;color:white;border:none;border-radius:8px;font-size:16px;cursor:pointer;transition:0.3s;">Read
+                    More</button>
+            </div>
+
+            <!-- Extra Sections -->
+            <div id="extra-sections" style="margin-top:30px; display:none; opacity:0; transition: opacity 0.5s;">
+                <div style="margin-bottom:25px;">
+                    <h3 style="color:#ff4500;">Our Mission</h3>
+                    <p style="font-size:16px; line-height:1.6;">To deliver a premium culinary experience, blending
+                        flavors, textures, and aromas in every dish. We strive for excellence and innovation in all our
+                        offerings.</p>
+                </div>
+                <div style="margin-bottom:25px;">
+                    <h3 style="color:#ff4500;">Our Locations</h3>
+                    <p style="font-size:16px; line-height:1.6;">Main Branch: Karachi – Clifton | Downtown Branch: Lahore
+                        | Central Branch: Islamabad. Swift delivery available across Karachi.</p>
+                </div>
+                <div style="margin-bottom:25px;">
+                    <h3 style="color:#ff4500;">Why Choose Us</h3>
+                    <p style="font-size:16px; line-height:1.6;">From fresh ingredients to passionate chefs, we bring a
+                        professional touch to each meal. Customer satisfaction and culinary perfection are our top
+                        priorities.</p>
+                </div>
+                <div style="text-align:center;">
+                    <button id="closeExtra"
+                        style="padding:10px 22px;background:#ff4500;color:white;border:none;border-radius:8px;font-size:15px;cursor:pointer;">Close</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const readMoreBtn = document.getElementById('readMoreBtn');
+        const moreText = document.getElementById('more');
+        const dots = document.getElementById('dots');
+        const extraSections = document.getElementById('extra-sections');
+        const closeExtra = document.getElementById('closeExtra');
+
+        readMoreBtn.addEventListener('click', () => {
+            // Reveal extra sections with fade animation
+            extraSections.style.display = 'block';
+            setTimeout(() => { extraSections.style.opacity = '1'; }, 10);
+
+            // Expand text
+            moreText.style.display = 'inline';
+            dots.style.display = 'none';
+
+            // Hide read more button
+            readMoreBtn.style.display = 'none';
+        });
+
+        closeExtra.addEventListener('click', () => {
+            // Hide extra sections with fade
+            extraSections.style.opacity = '0';
+            setTimeout(() => { extraSections.style.display = 'none'; }, 500);
+
+            // Collapse text
+            moreText.style.display = 'none';
+            dots.style.display = 'inline';
+
+            // Show read more button
+            readMoreBtn.style.display = 'inline';
+        });
+    </script>
+
+
+
+
+    <!-- Menu Section – Sehar Style Edition -->
+    <section id="menu" style="padding:80px 20px ;">
+        <h2 style="text-align:center;margin-bottom:40px;color:white;font-size:36px;">Our Menu</h2>
+        <div class="menu-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px; ">
+            <!-- Menu Card Example -->
+            <div class="menu-card"
+                style="background: rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:20px;border-radius:20px;text-align:center;cursor:pointer;transition:0.3s;">
+                <img src="https://i.pinimg.com/1200x/d2/7d/c5/d27dc57a0ecb8b72e0494cb23d7d4482.jpg"
+                    style="width:100%;border-radius:15px;margin-bottom:15px;">
+                <h3 style="color:#ff4500;">Pizza</h3>
+                <p>Rs 800</p>
+                <hr>
+                <!-- Hidden extra images section -->
+                <div class="extra-images" style="display:none;margin-top:15px;gap:10px;">
+                    <img src="https://i.pinimg.com/736x/96/19/d2/9619d2937490fcc6b2a64448344ee078.jpg"
+                        style="width:100%;border-radius:12px;cursor:pointer;">
+                    <img src="https://i.pinimg.com/736x/a1/fe/ee/a1feee34a6d9c38bceaf0b42010d5877.jpg"
+                        style="width:100%;border-radius:12px;cursor:pointer;">
+                    <img src="https://i.pinimg.com/1200x/ec/1f/d3/ec1fd366a2a14042715fefeb346f5814.jpg"
+                        style="width:100%;border-radius:12px;cursor:pointer;">
+                    <img src="https://i.pinimg.com/1200x/21/a1/3a/21a13a34b9b02fc1b0b986e3e0facafa.jpg"
+                        style="width:100%;border-radius:12px;cursor:pointer;">
+                </div>
+            </div>
+            <!-- Another Menu Card -->
+            <div class="menu-card"
+                style="background: rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:20px;border-radius:20px;text-align:center;cursor:pointer;transition:0.3s;">
+                <img src="https://i.pinimg.com/736x/c9/c5/01/c9c5013a47c78dde12d22a8659cdb945.jpg"
+                    style="width:100%;border-radius:15px;margin-bottom:15px;">
+                <h3 style="color:#ff4500;">Burger</h3>
+                <p>Rs 300</p>
+                <hr>
+                <div class="extra-images" style="display:none;margin-top:15px;gap:10px;">
+                    <img src="https://i.pinimg.com/736x/07/5e/9b/075e9b0c373d8a6d92f79adfc308dd24.jpg"
+                        style="width:100%;border-radius:12px;cursor:pointer;">
+                    <img src="https://i.pinimg.com/736x/8c/92/24/8c92242f4e666189d8157ef641d460b7.jpg"
+                        style="width:100%;border-radius:12px;cursor:pointer;">
+                    
+
+
+                    <img src="https://i.pinimg.com/1200x/90/30/d4/9030d4b14a66bed2576951e0438c1ece.jpg"
+                        style="width:100%;border-radius:12px;cursor:pointer;">
+
+                    <img src="https://i.pinimg.com/736x/67/54/2d/67542d5f476d6504046007f1d5637b74.jpg"
+                        style="width:100%;border-radius:12px;cursor:pointer;">
+                </div>
+            </div>
+            <!-- Add more cards similarly -->
+        </div>
+    </section>
+    <!-- Lightbox overlay -->
+    <div id="lightbox"
+        style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;z-index:1000;">
+        <img src="" style="max-width:90%;max-height:90%;border-radius:15px;">
+    </div>
+
+
+
+
+    <script>
+        // Expand extra images on click
+        document.querySelectorAll('.menu-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const extra = card.querySelector('.extra-images');
+                if (extra.style.display === "none" || extra.style.display === "") {
+                    extra.style.display = "grid"; // show grid
+                    extra.style.gridTemplateColumns = "repeat(auto-fit,minmax(100px,1fr))";
+                } else {
+                    extra.style.display = "none";
+                }
+            });
+        });
+        // Lightbox for extra images
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+
+        document.querySelectorAll('.extra-images img').forEach(img => {
+            img.addEventListener('click', e => {
+                e.stopPropagation(); // stop parent card click
+                lightboxImg.src = img.src;
+                lightbox.style.display = "flex";
+            });
+        });
+        // Close lightbox on click
+        lightbox.addEventListener('click', () => {
+            lightbox.style.display = "none";
+        });
+    </script>
+    <!-- Optional: Hover animation -->
+    <script>
+        document.querySelectorAll('.menu-card').forEach(card => {
+            card.addEventListener('mouseover', () => { card.style.transform = 'translateY(-10px)'; card.style.boxShadow = '0 8px 20px rgba(255,69,0,0.5)'; });
+            card.addEventListener('mouseout', () => { card.style.transform = 'translateY(0)'; card.style.boxShadow = '0 0 0 rgba(0,0,0,0)'; });
+        });
+    </script>
+    <!-- Chef’s Special Section -->
+    <section id="chef" style="padding:80px 20px;">
+        <h2 style="text-align:center;margin-bottom:40px;color:white;font-size:36px;">Chef's Special </h2>
+        <div class="chef-cards"
+            style="display:flex;overflow-x:auto;gap:20px;scroll-behavior:smooth;padding-bottom:20px;">
+            <!--  1 -->
+            <div class="chef-card"
+                style="min-width:250px;background: rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:20px;border-radius:20px;text-align:center;transition:0.3s;cursor:pointer;">
+                <img src="https://i.pinimg.com/1200x/14/fd/b1/14fdb1127c5b833bf8018cf60e138579.jpg"
+                    style="width:250px;border-radius:15px;margin-bottom:15px;">
+                <h3 style="color:#ff4500;"> The Special</h3>
+                <p style="color:white;">Full: <b>Rs 1500</b><br>Half: <b>Rs 800</b></p>
+            </div>
+            <!--  2 -->
+            <div class="chef-card"
+                style="min-width:250px;background: rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:20px;border-radius:20px;text-align:center;transition:0.3s;cursor:pointer;">
+                <img src="https://i.pinimg.com/1200x/d5/d4/bb/d5d4bb7e8a83e3cc20f3383e4ca3e5c7.jpg"
+                    style="width:250px;border-radius:15px;margin-bottom:15px;">
+                <h3 style="color:#ff4500;"> Cheesy Double Cheeseburger</h3>
+                <p style="color:white;">Full: <b>Rs 1200</b><br>Half: <b>Rs 650</b></p>
+            </div>
+            <!--  3 -->
+            <div class="chef-card"
+                style="min-width :238pxpx;background: rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:20px;border-radius:20px;text-align:center;transition:0.3s;cursor:pointer;">
+                <img src="https://i.pinimg.com/1200x/06/46/c7/0646c792fe8ad2d0d54f609413f3e5d4.jpg"
+                    style="width:250px;border-radius:15px;margin-bottom:15px;">
+                <h3 style="color:#ff4500;"> Alfredo Pasta </h3>
+                <li>Dish Name: Alfredo Pasta</li>
+                <li>Type: Main Course / Italian Cuisine</li>
+                <li>Serves: 1–2 persons (per plate)</li>
+                <p style="text-align: center; width: 250px;">"Alfredo Pasta is a rich and creamy delight, made with butter, cream, and parmesan.  Every bite is silky, cheesy, and comforting — perfect for pasta lovers."</p>
+                <p style="color:white;">Full: <b>Rs 1800</b><br>Half: <b>Rs 950</b></p>
+            </div>
+        </div>
+
+        
+
+
+
+    </section>
+    <!-- Optional: Hover animation for Chef Cards -->
+    <script>
+        document.querySelectorAll('.chef-card').forEach(card => {
+            card.addEventListener('mouseover', () => { card.style.transform = 'translateY(-10px)'; card.style.boxShadow = '0 8px 20px rgba(255,69,0,0.5)'; });
+            card.addEventListener('mouseout', () => { card.style.transform = 'translateY(0)'; card.style.boxShadow = '0 0 0 rgba(0,0,0,0)'; });
+        });
+    </script>
+    <section id="testimonials" style="padding:50px 20px;overflow:hidden;white-space:nowrap;">
+        <div id="reviews-container" style="display:flex;gap:20px;">
+
+            <!-- Card 1 -->
+            <div class="review-card"
+                style="flex:none;background: rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px;border-radius:20px;min-width:250px;text-align:center;">
+                <img src="https://randomuser.me/api/portraits/women/1.jpg"
+                    style="width:50px;height:50px;border-radius:50%;margin-bottom:5px;">
+                <small style="color:white;">Karachi | @ayesha512346</small>
+
+                <div style="color:#ff4500;margin-bottom:5px;">⭐⭐⭐⭐⭐</div>
+                <strong style="color:white;">Ayesha</strong><br>
+                <img src="https://i.pinimg.com/1200x/03/dc/05/03dc05228b571cbfc3db835d6862b47f.jpg"
+                    style="width: 250px;height: 250px;;border-radius:12px;margin-top:5px;margin-bottom:5px;">
+                <p style="color:white;font-size:14px;">"Pizza garam aur crispy, delivery super <br> fast 🛵💨, taste
+                    perfect 🍕!"</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="review-card"
+                style="flex:none;background: rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px;border-radius:20px;min-width:250px;text-align:center;">
+                <img src="https://randomuser.me/api/portraits/men/2.jpg"
+                    style="width:50px;height:50px;border-radius:50%;margin-bottom:5px;">
+                <small style="color:white;">Karachi | @ali09787</small>
+
+                <div style="color:#ff4500;margin-bottom:5px;">⭐⭐⭐⭐</div>
+                <strong style="color:white;"><b>Ali</b></strong><br>
+                <img src="https://i.pinimg.com/1200x/5f/14/7d/5f147d0e7a9d2d9235887836a37c1020.jpg"
+                    style="width:250px; height: 250px;border-radius:12px;margin-top:5px;margin-bottom:5px;">
+                <p style="color:white;font-size:14px;">"Burger thoda cold 😅,<br> lekin delivery fast aur staff polite
+                    👍🍔"</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="review-card"
+                style="flex:none;background: rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px;border-radius:20px;min-width:250px;text-align:center;">
+                <img src="https://randomuser.me/api/portraits/women/3.jpg"
+                    style="width:50px;height:50px;border-radius:50%;margin-bottom:5px;">
+                <small style="color:white;">Karachi | @sara97973</small>
+
+                <div style="color:#ff4500;margin-bottom:5px;">⭐⭐⭐⭐⭐</div>
+                <strong style="color:white;"> <i>Sara</i></strong><br>
+                <img src="https://i.pinimg.com/1200x/9d/18/85/9d1885b398179cf317b74ba242d0d9b4.jpg"
+                    style="width:250px; height: 250px;border-radius:12px;margin-top:5px;margin-bottom:5px;">
+                <p style="color:white;font-size:14px;">"Karahi spicy 🌶️, delivery on time 🛵,<br> taste excellent 👌😍"
+                </p>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="review-card"
+                style="flex:none;background: rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px;border-radius:20px;min-width:250px;text-align:center;">
+                <img src="https://randomuser.me/api/portraits/men/4.jpg"
+                    style="width: 50px;height:50px;border-radius:50%;margin-bottom:5px;">
+                <small style="color:white;">Karachi| @usman57575</small>
+
+                <div style="color:#ff4500;margin-bottom:5px;">⭐⭐⭐</div>
+                <strong style="color:white;"> <u>The Usman</u></strong><br>
+                <img src="https://i.pinimg.com/1200x/01/29/5a/01295a523a49640325f278c210cabeed.jpg"
+                    style="width:250px; height: 250px;border-radius:12px;margin-top:5px;margin-bottom:5px;">
+                <p style="color:white;font-size:14px;">"Pizza thoda cold 😬,<br> lekin delivery lightning fast 🛵💨.
+                    Taste good 👍🍕"</p>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="review-card"
+                style="flex:none;background: rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px;border-radius:20px;min-width:250px;text-align:center;">
+                <img src="https://randomuser.me/api/portraits/women/5.jpg"
+                    style="width: 50px;height: 50px;;border-radius:50%;margin-bottom:5px;">
+                <small style="color:white;">Karachi | @hina053456</small>
+                <div style="color:#ff4500;margin-bottom:5px;">⭐⭐⭐⭐</div>
+                <strong style="color:white;"> Shy Girl</strong><br>
+
+                <img src="https://i.pinimg.com/1200x/5f/14/7d/5f147d0e7a9d2d9235887836a37c1020.jpg"
+                    style="width:250px; height: 250px;border-radius:12px;margin-top:5px;margin-bottom:5px;">
+                <p style="color:white;font-size:14px;">"Burger delicious 😋,<br> delivery fast 🛵, staff friendly 👌"
+                </p>
+            </div>
+            <!-- card 6 -->
+            <div class="review-card"
+                style="flex:none;background: rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px;border-radius:20px;min-width:250px;text-align:center;">
+                <img src="https://randomuser.me/api/portraits/women/63.jpg"
+                    style="width: 50px;height: 50px;;border-radius:50%;margin-bottom:5px;">
+                <small style="color:white;">Karachi | @mahnoor</small>
+                <div style="color:#ff4500;margin-bottom:5px;">⭐⭐⭐⭐</div>
+                <strong style="color:white;"> Zero Vibe</strong><br>
+
+                <img src="https://i.pinimg.com/1200x/00/34/de/0034deca1d21ffba6811eb3f6b0b8945.jpg"
+                    style="width:250px; height: 250px;border-radius:12px;margin-top:5px;margin-bottom:5px;">
+                <p style="color:white;font-size:14px;">" I ordered a burger . <br>it was good, tasty, just fine overall.
+                    🍔✨"</p>
+            </div>
+            <!-- Card 7 -->
+            <div class="review-card"
+                style="flex:none;background: rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px;border-radius:20px;min-width:250px;text-align:center;">
+                <img src="https://randomuser.me/api/portraits/men/87.jpg"
+                    style="width: 50px;height: 50px;;border-radius:50%;margin-bottom:5px;">
+                <small style="color:white;">Karachi | @funnypanda</small>
+                <div style="color:#ff4500;margin-bottom:5px;">⭐⭐⭐⭐</div>
+                <strong style="color:white;">jhog</strong><br>
+
+                <img src="https://i.pinimg.com/1200x/d7/a3/f5/d7a3f5679b76db9d2c58f6536ab4148c.jpg"
+                    style="width:250ox; height: 350px;border-radius:12px;margin-top:5px;margin-bottom:5px;">
+                <p style="color:white;font-size:14px;">I had ordered the <br>chef’s special, and it was really
+                    enjoyable. ✨</p>
+            </div>
+            <!-- Card 8 -->
+            <div class="review-card"
+                style="flex:none;background: rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px;border-radius:20px;min-width:250px;text-align:center;">
+                <img src="https://randomuser.me/api/portraits/women/93.jpg"
+                    style="width: 50px;height: 50px;;border-radius:50%;margin-bottom:5px;">
+                <small style="color:white;">Karachi | @laiba053456</small>
+                <div style="color:#ff4500;margin-bottom:5px;">⭐⭐⭐⭐</div>
+                <strong style="color:white;"> Chill Bandi</strong><br>
+
+                <img src="https://i.pinimg.com/736x/f6/aa/ee/f6aaeecffe9c4a155621e81cf6358f7e.jpg"
+                    style="width:250px; height: 250px;border-radius:12px;margin-top:5px;margin-bottom:5px;">
+                <p style="color:white;font-size:14px;">"The pizza was good, <br> really nice,<br> I enjoyed it — but the
+                    delivery <br>was late, even though <br> I was craving pizza. 🍕✨"</p>
+            </div>
+            <!-- Card 9 -->
+            <div class="review-card"
+                style="flex:none;background: rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px;border-radius:20px;min-width:250px;text-align:center;">
+                <img src="https://randomuser.me/api/portraits/men/59.jpg"
+                    style="width: 50px;height: 50px;;border-radius:50%;margin-bottom:5px;">
+                <small style="color:white;">Karachi | @banda597869</small>
+                <div style="color:#ff4500;margin-bottom:5px;">⭐⭐⭐⭐</div>
+                <strong style="color:white;">funny men </strong><br>
+
+                <img src="https://i.pinimg.com/736x/b7/be/28/b7be288366b2706035130a0c0fc6ec5b.jpg"
+                    style="width:250px; height: 250px;border-radius:12px;margin-top:5px;margin-bottom:5px;">
+                <p style="color:white;font-size:14px;">:"I ordered AlFurahdo pasta!🥰🤩🤤 it was very <br>delicious and  🤤🤤🤤🤤🤤<br>I really enjoyed it, and the delivery was also very good."</p>
+            </div>
+            <!-- Card 10 -->
+            <div class="review-card"
+                style="flex:none;background: rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px;border-radius:20px;min-width:250px;text-align:center;">
+                <img src="https://randomuser.me/api/portraits/men/35.jpg"
+                    style="width: 50px;height: 50px;;border-radius:50%;margin-bottom:5px;">
+                <small style="color:white;">Karachi | @khawer545433</small>
+                <div style="color:#ff4500;margin-bottom:5px;">⭐⭐⭐⭐⭐</div>
+                <strong style="color:white;">The Boy </strong><br>
+
+                <img src="https://i.pinimg.com/1200x/f0/f5/8d/f0f58db50399aada5736ed9180d0c8ab.jpg"
+                    style="width:250px; height: 250px;border-radius:12px;margin-top:5px;margin-bottom:5px;">
+                <p style="color:white;font-size:14px;">"I ordered a burger,🍔<br> and I must say there’s <br>no restaurant better than this one. 🍽️🥹<br>It’s so good that I don’t even have the <br>words to describe it.😘😉"</p>
+            </div>
+        </div>
+
+        </div>
+    </section>
+
+    <script>
+        const container = document.getElementById('reviews-container');
+        let scrollPos = 0;
+        let isHovered = false;
+
+        // Pause scroll and zoom on hover
+        const cards = container.querySelectorAll('.review-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                isHovered = true;
+                card.style.transform = 'scale(1.1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                isHovered = false;
+                card.style.transform = 'scale(1)';
+            });
+        });
+
+        function scrollReviews() {
+            if (!isHovered) {
+                scrollPos += 3; // speed
+                if (scrollPos >= container.scrollWidth - container.parentElement.offsetWidth) scrollPos = 2;
+                //   if(scrollPos >= scrollPos.scrollWidth / 2) scrollX = 0;
+                container.style.transform = `translateX(-${scrollPos}px)`;
+            }
+            requestAnimationFrame(scrollReviews);
+        }
+        scrollReviews();
+
+
+
+    </script>
+    <!-- Restaurant Info & Social Section -->
+    <section id="flame-fork"
+        style="padding:50px 20px;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);border-radius:20px;margin:30px 0;overflow:hidden;">
+        <h2 style="color:#ff4500;text-align:center;margin-bottom:20px;font-size:28px;">Our Restaurant Journey 🌟</h2>
+
+        <!-- Running Icons & Locations -->
+        <div id="location-card" style="overflow:hidden;">
+            <div id="locations-container" style="display:flex;gap:20px;white-space:nowrap;align-items:center;">
+
+                <!-- Location Card Template -->
+                <div class="location-card"
+                    style="flex:none;background:rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:15px;border-radius:20px;text-align:center;min-width:200px;">
+                    <img src="https://i.pinimg.com/736x/e3/0d/09/e30d096278efbec8dc132285d8b82deb.jpg"
+                        style="width:50px;height:50px;margin-bottom:8px;border-radius:50%;">
+                    <strong style="color:white;font-size:16px;">Karachi</strong><br>
+                    <small style="color:white;font-size:13px;">Main Branch</small>
+                    <p style="color:white;font-size:12px;margin-top:5px;">Delivery: 10am - 11pm 🛵</p>
+                </div>
+
+                <div class="location-card"
+                    style="flex:none;background:rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:15px;border-radius:20px;text-align:center;min-width:200px;">
+                    <img src="https://i.pinimg.com/736x/5a/59/e3/5a59e3bca1936c2ffbee86bf9642668a.jpg"
+                        style="width:50px;height:50px;margin-bottom:8px;border-radius:50%;">
+                    <strong style="color:white;font-size:16px;">Lahore</strong><br>
+                    <small style="color:white;font-size:13px;">Downtown Branch</small>
+                    <p style="color:white;font-size:12px;margin-top:5px;">Delivery: 11am - 10pm 🛵</p>
+                </div>
+
+                <div class="location-card"
+                    style="flex:none;background:rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:15px;border-radius:20px;text-align:center;min-width:200px;">
+                    <img src="https://i.pinimg.com/736x/fe/eb/ff/feebffc85978efbe97dee1b244e267b8.jpg"
+                        style="width:50px;height:50px;margin-bottom:8px;border-radius:50%;">
+                    <strong style="color:white;font-size:16px;">Islamabad</strong><br>
+                    <small style="color:white;font-size:13px;">Centra Branch</small>
+                    <p style="color:white;font-size:12px;margin-top:5px;">Delivery: 10am - 11pm 🛵</p>
+                </div>
+
+                <!-- Duplicate for seamless scroll -->
+                <div class="location-card"
+                    style="flex:none;background:rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:15px;border-radius:20px;text-align:center;min-width:200px;">
+                    <img src="https://i.pinimg.com/736x/e3/0d/09/e30d096278efbec8dc132285d8b82deb.jpg"
+                        style="width:50px;height:50px;margin-bottom:8px;border-radius:50%;">
+                    <strong style="color:white;font-size:16px;">Karachi</strong><br>
+                    <small style="color:white;font-size:13px;">Main Branch</small>
+                    <p style="color:white;font-size:12px;margin-top:5px;">Delivery: 10am - 11pm 🛵</p>
+                </div>
+
+                <div class="location-card"
+                    style="flex:none;background:rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:15px;border-radius:20px;text-align:center;min-width:200px;">
+                    <img src="https://i.pinimg.com/736x/5a/59/e3/5a59e3bca1936c2ffbee86bf9642668a.jpg"
+                        style="width:50px;height:50px;margin-bottom:8px;border-radius:50%;">
+                    <strong style="color:white;font-size:16px;">Lahore</strong><br>
+                    <small style="color:white;font-size:13px;">Downtown Branch</small>
+                    <p style="color:white;font-size:12px;margin-top:5px;">Delivery: 11am - 10pm 🛵</p>
+                </div>
+
+                <div class="location-card"
+                    style="flex:none;background:rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:15px;border-radius:20px;text-align:center;min-width:200px;">
+                    <img src="https://i.pinimg.com/736x/fe/eb/ff/feebffc85978efbe97dee1b244e267b8.jpg"
+                        style="width:50px;height:50px;margin-bottom:8px;border-radius:50%;">
+                    <strong style="color:white;font-size:16px;">Islamabad</strong><br>
+                    <small style="color:white;font-size:13px;">Centra Branch</small>
+                    <p style="color:white;font-size:12px;margin-top:5px;">Delivery: 10am - 11pm 🛵</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Social Media & Delivery Platforms -->
+        <div id="social media"
+            style="display:flex;gap:25px;justify-content:center;margin-top:30px;flex-wrap:wrap;align-items:center;">
+            <a href="#" style="text-decoration:none;color:white;text-align:center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"
+                    style="width:40px;height:40px;"><br>TikTok
+            </a>
+            <a href="#" style="text-decoration:none;color:white;text-align:center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png"
+                    style="width:40px;height:40px;"><br>Instagram
+            </a>
+            <a href="#" style="text-decoration:none;color:white;text-align:center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
+                    style="width:40px;height:40px;"><br>Facebook
+            </a>
+            <a href="#" style="text-decoration:none;color:white;text-align:center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
+                    style="width:40px;height:40px;"><br>YouTube
+            </a>
+            <a href="#" style="text-decoration:none;color:white;text-align:center;">
+                <img src="https://i.pinimg.com/1200x/8e/9b/38/8e9b384c34fc7c1c8bd4edc8737878c1.jpg"
+                    style="width:40px;height:40px;"><br>FoodPanda
+            </a>
+        </div>
+
+    </section>
+
+    <script>
+        const locContainer = document.getElementById('locations-container');
+        let scrollX = 1;
+        function scrollLocations() {
+            scrollX += 1; // speed
+            if (scrollX >= locContainer.scrollWidth / 2) scrollX = 0; // seamless reset
+            locContainer.style.transform = `translateX(-${scrollX}px)`;
+            requestAnimationFrame(scrollLocations);
+        }
+        scrollLocations();
+    </script>
+
+
+
+    <!-- Contact Section – Sehar Style Edition -->
+    <section id=""
+        style="padding:80px 20px;background: rgba(255,255,255,0.05);backdrop-filter:blur(10px);border-radius:20px;max-width:600px;margin:50px auto;text-align:center;">
+        <h2 style="font-size:36px;color:white;margin-bottom:30px;">Book a Table</h2>
+        <p style="color:white;margin-bottom:10px;">Phone: 0300-1234567</p>
+        <p style="color:white;margin-bottom:20px;">Email: @flamefork.com</p>
+        <button onclick="alert('Thank you! We will contact you soon.');"
+            style="padding:15px 30px;background:#ff4500;color:white;border:none;border-radius:10px;font-size:18px;cursor:pointer;transition:0.3s;">Book
+            a Table</button>
+    </section>
+    <!-- Contact Section with Map -->
+    <section id="contact" style="padding:80px 20px;background: rgba(0,0,0,0.8);border-radius:20px;color:white;">
+        <h2 style="text-align:center;font-size:36px;margin-bottom:40px;color:#ff4500;">Contact Us</h2>
+
+        <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:flex-start;">
+
+            <!-- Contact Info -->
+            <div style="flex:1;min-width:300px;">
+                <h3 style="margin-bottom:20px;">Get in Touch</h3>
+                <p style="text-align: center;">📍 Address: Main Branch, Karachi, Pakistan</p>
+                <p>📞 Phone: +92 300 1234567</p>
+                <p>✉ Email: info@flamefork.com</p>
+                <p>🕒 Timings: 10am - 11pm Daily</p>
+
+                <!-- Social Icons -->
+                <div style="margin-top:20px;display:flex;gap: 15px; ">
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"
+                            style="width:70px;height:70px;"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png"
+                            style="width:70px;height:70px;"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
+                            style="width:70px;height:70px; "></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
+                            style="width:70px;height:70px;"></a>
+                </div>
+            </div>
+
+            <!-- Google Map Embed -->
+            <div
+                style="flex:1;min-width:300px;border-radius:20px;overflow:hidden;box-shadow: 0 8px 20px rgba(0,0,0,0.5);">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.123456789!2d67.0012345678!3d24.8601234567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f123456789%3A0xabcdef1234567890!2sFlame%20%26%20Fork!5e0!3m2!1sen!2s!4v1693956789012!5m2!1sen!2s"
+                    width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer style="background: rgba(0,0,0,0.7);padding:50px 20px;text-align:center;border-radius:20px;margin-top:50px;">
+        <div class="socials" style="margin-bottom:20px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+            <!-- TikTok -->
+            <a href="#" target="_blank" style="transition:0.3s;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" style="width:40px;height:40px;">
+            </a>
+            <!-- Instagram -->
+            <a href="#" target="_blank" style="transition:0.3s;">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" style="width:40px;height:40px;">
+            </a>
+            <!-- Facebook -->
+            <a href="#" target="_blank" style="transition:0.3s;">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" style="width:40px;height:40px;">
+            </a>
+            <!-- You can add more icons like YouTube, FoodPanda if needed -->
+        </div>
+        <p style="color:white;font-size:14px;">© 2025 Flame & Fork. All rights reserved.</p>
+    </footer>
+    <!-- Optional: Hover for social icons -->
+    <script>
+        document.querySelectorAll('.socials a').forEach(icon => {
+            icon.addEventListener('mouseover', () => { icon.style.color = '#ff4500'; });
+            icon.addEventListener('mouseout', () => { icon.style.color = 'white'; });
+        });
+    </script>
+</body>
+</html>
