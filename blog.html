@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxury Perfume Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap"
+    rel="stylesheet">
+  <style>
+    /* Global */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0d0d0d;
+      color: #fff;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #111;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar img {
+      height: 50px;
+    }
+
+    .navbar h1 {
+      font-family: 'Playfair Display', serif;
+      color: #ffd700;
+      margin-left: 0.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-family: 'Playfair Display', serif;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ffd700;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 80vh;
+      background: url('https://i.pinimg.com/736x/68/51/4e/68514ee1be6f3eed5189ad526fd77e06.jpg') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: #ffd700;
+      border-right: 2px solid #ffd700;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    /* Sections */
+    section {
+      padding: 4rem 2rem;
+    }
+
+    section h2 {
+      font-family: 'Playfair Display', serif;
+      color: #ffd700;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .about p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: #ccc;
+      font-size: 1rem;
+      line-height: 1.6rem;
+      text-align: center;
+    }
+
+    .contact {
+      text-align: center;
+    }
+
+    .contact p {
+      color: #ccc;
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+
+
+    .animated-img {
+      width: 100%;
+      margin: 2rem 0;
+      border-radius: 15px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+
+    .animated-img.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .animated-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px #ffd700;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+      gap: 2rem;
+    }
+
+    .tab {
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .tab.active {
+      border-bottom: 2px solid #ffd700;
+      color: #ffd700;
+    }
+
+    /* Perfume Grid */
+    .perfume-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0 2rem 4rem 2rem;
+    }
+
+    .perfume-card {
+      background: #1a1a1a;
+      padding: 1rem;
+      width: 220px;
+      text-align: center;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .perfume-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ffd700;
+    }
+
+    .perfume-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .perfume-name {
+      font-family: 'Playfair Display', serif;
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+      color: #ffd700;
+    }
+
+    .perfume-details {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .modal-content {
+      background: #1a1a1a;
+      padding: 2rem;
+      border-radius: 15px;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+      color: #fff;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .modal-content img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ffd700;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-family: 'Playfair Display', serif;
+      color: #ffd700;
+      font-size: 1rem;
+    }
+
+    /* Scroll Animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div style="display:flex;align-items:center;">
+      <img src="https://i.pinimg.com/736x/93/d4/f1/93d4f1a4be73a0ff521c146b2494bfb4.jpg" alt="Logo"
+        style=" height: 60px; width: auto;">
+      <h1></h1>
+    </div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#perfumes">Perfumes</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-text" id="heroText"></div>
+  </section>
+
+  <section class="about fade-up" id="about">
+    <h2 style="color:#ffd700;">About</h2>
+
+    <p style="text-align:left ;">
+      Welcome to our Luxury Perfume Portfolio. Our journey began with a passion for creating scents that awaken the
+      senses and elevate moments into memories. Each perfume is meticulously curated to blend rare and exquisite
+      ingredients, reflecting elegance, sophistication, and timeless allure. Every fragrance is a story captured in a
+      bottle, inspired by art, nature, and the beauty of life's fleeting moments.
+    </p>
+    <img src="https://i.pinimg.com/1200x/ea/b1/94/eab19470cf647b24fd5eae8288934fe5.jpg" class="animated-img"
+      style="width: 400px ;display: block; margin: 2rem auto;">
+
+    <p style="text-align: left;">
+      Our collection spans men, women, and unisex perfumes, each designed to leave a lasting impression. The subtle
+      warmth of amber, delicate whispers of jasmine, and the richness of vanilla converge to create experiences that
+      linger. With every bottle, we honor craftsmanship, attention to detail, and the artistry of perfumery. These
+      fragrances are more than scents—they are expressions of personality and elegance.
+    </p>
+    <img src="https://i.pinimg.com/736x/98/f0/81/98f081062da3d0ff5b67a0fb23999a20.jpg" class="animated-img"
+      style="width:400px;display: block;margin:2rem auto">
+
+    <p style="text-align: left;">
+      Every perfume is carefully crafted by talented perfumers who bring creativity, expertise, and vision. The top,
+      middle, and base notes are selected to harmonize perfectly, evoking emotions, memories, and confidence. We strive
+      to combine innovation with tradition, ensuring each fragrance resonates with inner elegance and style. Our
+      portfolio is a celebration of sensory artistry that invites you to explore, discover, and indulge.
+    </p>
+    <img src="https://i.pinimg.com/1200x/3f/77/b7/3f77b7491b546ecefe378689cbd57bb2.jpg" class="animated-img"
+      style="width:400px;display: block; margin: 2rem auto">
+
+    <p style="text-align: left;">
+      Scroll through our curated collection and experience the artistry behind each scent. Discover the inspiration, the
+      ingredients, and the passion that shape our perfumes. Each paragraph here aligns with the images, telling a story
+      that enhances your understanding of the fragrance. Immerse yourself in a world where luxury, elegance, and
+      olfactory artistry converge.
+    </p>
+    <img
+      src="https://media.istockphoto.com/id/517570784/photo/bottle-of-men-perfume-and-gray-scarf.webp?a=1&s=612x612&w=0&k=20&c=cWl5Si4wf_F8ed8pSd1dYOizj2LjciXJHJY7AHb1Z4A="
+      class="animated-img" style="width:400px; display: block; margin: 2rem auto">
+  </section>
+
+
+
+
+  <div class="tabs fade-up">
+    <div class="tab active" data-category="men">Men</div>
+    <div class="tab" data-category="women">Women</div>
+    <div class="tab" data-category="unisex">Unisex</div>
+  </div>
+
+  <!-- Perfume Grid -->
+  <div class="perfume-grid fade-up" id="perfumeGrid"></div>
+
+  <!-- Contact -->
+  <section class="contact fade-up" id="contact">
+    <h2>Contact</h2>
+    <p>Email: info@perfumeportfolio.com</p>
+    <p>Instagram: @perfumeportfolio</p>
+    <p>Facebook: Perfume Portfolio</p>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content" id="modalContent">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <img src="" alt="Perfume" id="modalImg">
+      <h2 id="modalName"></h2>
+      <p id="modalPrice"></p>
+      <p id="modalNotes"></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Sehar Shakeel | Luxury Perfumes Portfolio
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // Hero typing
+    const heroText = document.getElementById('heroText');
+    const text = "Discover Your Signature Scent...";
+    let i = 0;
+    const typeText = () => { if (i < text.length) { heroText.innerHTML += text.charAt(i); i++; setTimeout(typeText, 100); } }
+    // const typeText = () => { if (i < text.length) { heroText.innerHTML += text.charAt(i); i++; setTimeout(typeText, 100); } }
+    const heroObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) typeText(); }); }, { threshold: 0.5 });
+    heroObserver.observe(document.querySelector('.hero'));
+
+    // Perfumes
+    const perfumes = {
+      men: [{ name: "MONTALE", price: "$205", notes: "Woody, Musk", img: "https://i.pinimg.com/1200x/ff/f6/ea/fff6ea54b13e30965665ae25d11d3075.jpg" },
+      // {name:"Royal Essence",price:"$150",notes:"Amber, Vanilla",img:"https://i.pinimg.com/736x/50/1f/59/501f59260def2c11a5953ebe88725150.jpg"},
+      // {name:"Royal Essence",price:"$150",notes:"Amber, Vanilla",img:"https://i.pinimg.com/736x/50/1f/59/501f59260def2c11a5953ebe88725150.jpg"},
+      { name: "TOMFORD", price: "$150", notes: "Amber, Vanilla,Royal Essence", img: "https://i.pinimg.com/736x/50/1f/59/501f59260def2c11a5953ebe88725150.jpg" }
+      ],
+      women: [{ name: "ABSOLUE", price: "$110", notes: "Rose, Jasmine Floral Whisper", img: "https://i.pinimg.com/736x/5f/e5/68/5fe568e65a6e5d88ad8809e48d6fa51f.jpg" },
+      { name: "Golden Petal", price: "$140", notes: "Peach, Amber", img: "https://i.pinimg.com/1200x/31/17/f6/3117f65e6e8aa3eff770862933bf49b7.jpg" }],
+      unisex: [{ name: "Eternal Mist", price: "$130", notes: "Citrus, Oak", img: "https://i.pinimg.com/736x/b0/07/bd/b007bd11c2cbadf48ff32fd0e57470e5.jpg" },
+      { name: "Velvet Night", price: "$145", notes: "Sandalwood, Musk", img: "https://i.pinimg.com/736x/d2/c1/7a/d2c17afe1bd35664c76e6bb25596637d.jpg" },
+      { name: "Velvet Night", price: "$145", notes: "Sandalwood, Musk", img: "https://i.pinimg.com/736x/d2/c1/7a/d2c17afe1bd35664c76e6bb25596637d.jpg" }]
+      
+      
+    };
+
+    const perfumeGrid = document.getElementById('perfumeGrid');
+    const displayPerfumes = (category) => { perfumeGrid.innerHTML = ''; perfumes[category].forEach(p => { const card = document.createElement('div'); card.classList.add('perfume-card'); card.innerHTML = `<img src="${p.img}" alt="${p.name}"><h3 class="perfume-name">${p.name}</h3><p class="perfume-details">${p.price}</p>`; card.addEventListener('click', () => openModal(p)); perfumeGrid.appendChild(card); }); };
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => { tab.addEventListener('click', () => { document.querySelector('.tab.active').classList.remove('active'); tab.classList.add('active'); displayPerfumes(tab.dataset.category); }); });
+    displayPerfumes('men');
+
+    // Modal
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalName = document.getElementById('modalName');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalNotes = document.getElementById('modalNotes');
+    const closeModalBtn = document.getElementById('closeModal');
+    const openModal = p => { modal.style.display = 'flex'; modalImg.src = p.img; modalName.textContent = p.name; modalPrice.textContent = p.price; modalNotes.textContent = p.notes; };
+    const closeModal = () => { modal.style.display = 'none'; };
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+    // Scroll animations
+    const faders = document.querySelectorAll('.fade-up');
+    const appearOptions = { threshold: 0.3, rootMargin: "0px 0px -50px 0px" };
+    const appearOnScroll = new IntersectionObserver(function (entries, appearOnScroll) { entries.forEach(entry => { if (!entry.isIntersecting) return; entry.target.classList.add('show'); appearOnScroll.unobserve(entry.target); }); }, appearOptions);
+    faders.forEach(fader => { appearOnScroll.observe(fader); });
+
+    const animatedImages = document.querySelectorAll('.animated-img');
+    const imgObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          imgObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    animatedImages.forEach(img => imgObserver.observe(img));
+
+  </script>
+</body>
+
+</html>
